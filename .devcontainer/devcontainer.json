@@ -1,7 +1,6 @@
 {
     "image": "mcr.microsoft.com/dotnet/sdk:6.0",
-    "workspaceFolder": "/distributed-counter/source",
-    "updateContentCommand": "dotnet build",
+    "workspaceFolder": "/",
     "features": {
         "ghcr.io/devcontainers/features/azure-cli:1": {
             "installBicep": true,
@@ -12,15 +11,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
     },
     "customizations": {
-        "codespaces": {
-            "openFiles": [
-                "readme.md"
-            ]
-        },
         "vscode": {
-            "settings": {
-                "git.openRepositoryInParentFolders": "always"
-            },
             "extensions": [
 				"ms-dotnettools.csharp",
 				"ms-azuretools.vscode-bicep"
