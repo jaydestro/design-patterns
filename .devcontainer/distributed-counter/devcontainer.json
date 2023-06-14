@@ -1,6 +1,8 @@
 {
+    "name": "Distributed counter pattern",
     "image": "mcr.microsoft.com/dotnet/sdk:6.0",
-    "workspaceFolder": "/distributed-counter/source",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "workspaceFolder": "/workspace/distributed-counter/source/",
     "updateContentCommand": "dotnet build",
     "features": {
         "ghcr.io/devcontainers/features/azure-cli:1": {
@@ -22,9 +24,9 @@
                 "git.openRepositoryInParentFolders": "always"
             },
             "extensions": [
-				"ms-dotnettools.csharp",
-				"ms-azuretools.vscode-bicep"
-			]
+                "ms-dotnettools.csharp",
+                "ms-azuretools.vscode-bicep"
+            ]
         }
     }
 }

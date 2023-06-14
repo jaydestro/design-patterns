@@ -1,6 +1,6 @@
 {
+    "name": "All patterns",
     "image": "mcr.microsoft.com/dotnet/sdk:6.0",
-    "workspaceFolder": "/",
     "features": {
         "ghcr.io/devcontainers/features/azure-cli:1": {
             "installBicep": true,
@@ -13,9 +13,9 @@
     "customizations": {
         "vscode": {
             "extensions": [
-				"ms-dotnettools.csharp",
-				"ms-azuretools.vscode-bicep"
-			]
+                "ms-dotnettools.csharp",
+                "ms-azuretools.vscode-bicep"
+            ]
         }
     }
 }
