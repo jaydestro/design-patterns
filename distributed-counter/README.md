@@ -64,13 +64,12 @@ This sample is implemented as a C#/.NET application with three projects. The thr
   - The console application uses the `DistributedCounterOperationalService` to update the counters.
 
   ```output
-  Running Distributed Counter Consumer ...
-  Enter the Counter ID
-  41b78ede-e06f-43f1-9443-1d939d26ca03
-  Getting Counter...
-  Enter the number of worker threads required
-  4
-  4 worker threads are running... ,hit any key to exit
+  ── Starting distributed counter consumer... ───────────────────────────────
+  What is the counter ID? ecfd48fc-002e-49cc-a355-40eaf1ea69c3
+  What are the number of worker threads required? 3
+  ── 3 worker threads are running... ────────────────────────────────────────
+  Success         Decrement by 2
+  ...
   ```
 
 ## Try this implementation
@@ -134,17 +133,25 @@ This option requires only a [GitHub account](https://github.com/join) to run the
     ```
 
     ```output
-    Running Distributed Counter Consumer ...
-    Enter the Counter ID
-    41b78ede-e06f-43f1-9443-1d939d26ca03
-    Getting Counter...
-    Enter the number of worker threads required
-    4
-    4 worker threads are running... ,hit any key to exit
-    Success: Decrement by 3
-    Success: Decrement by 1
-    Success: Decrement by 2
+    ── Starting distributed counter consumer... ───────────────────────────────
+    What is the counter ID? ecfd48fc-002e-49cc-a355-40eaf1ea69c3
+    What are the number of worker threads required? 3
+    ── 3 worker threads are running... ────────────────────────────────────────
+    Success         Decrement by 2
+    Success         Decrement by 3
+    Success         Decrement by 3
+    Success         Decrement by 1
+    Success         Decrement by 1
+    Success         Decrement by 2
+    Success         Decrement by 3
+    Success         Decrement by 2
+    Success         Decrement by 1
+    Success         Decrement by 1
+    Success         Decrement by 3
     ...
+    Failed          Attemped to decrement by 2
+    Failed          Attemped to decrement by 3
+    Failed          Attemped to decrement by 2
     ```
 
 1. Go back to the web application and observe the counters values change over time.
