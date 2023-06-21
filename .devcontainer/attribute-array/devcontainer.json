@@ -1,8 +1,8 @@
 {
-    "name": "Distributed counter pattern",
+    "name": "Attribute array pattern",
     "image": "mcr.microsoft.com/devcontainers/dotnet:6.0",
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
-    "workspaceFolder": "/workspace/distributed-counter/source/",
+    "workspaceFolder": "/workspace/attribute-array/source/",
     "updateContentCommand": "dotnet build",
     "features": {
         "ghcr.io/devcontainers/features/azure-cli:1": {

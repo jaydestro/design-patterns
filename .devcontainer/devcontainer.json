@@ -1,6 +1,6 @@
 {
     "name": "All patterns",
-    "image": "mcr.microsoft.com/dotnet/sdk:6.0",
+    "image": "mcr.microsoft.com/devcontainers/universal:linux",
     "features": {
         "ghcr.io/devcontainers/features/azure-cli:1": {
             "installBicep": true,
