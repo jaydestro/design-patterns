@@ -1,5 +1,6 @@
 ﻿using DataUploader.Options;
 using DataUploader.Services;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Spectre.Console;
 using Container = Microsoft.Azure.Cosmos.Container;
@@ -14,10 +15,31 @@ Cosmos? config = configuration
     .Build()
     .Get<Cosmos>();
 
-Console.MarkupLine($"[red invert italic]Connecting to Cosmos DB account [underline]{config?.CosmosUri}[/]...[/]");
-Console.MarkupLine($"[red invert italic]Using Cosmos DB key [underline]{config?.CosmosKey}[/]...[/]");
+Console.MarkupLine($"[red italic]Connecting to Azure Cosmos DB account...[/]");
 
-Database database = await CosmosService.RetrieveDatabaseAsync(config?.CosmosUri, config?.CosmosKey, "CosmosPatterns");
+CosmosSerializationOptions serializerOptions = new()
+{
+    IgnoreNullValues = true,
+    PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
+};
+
+CosmosClientOptions options = new()
+{
+    AllowBulkExecution = true,
+    SerializerOptions = serializerOptions,
+    MaxRetryAttemptsOnRateLimitedRequests = 10
+};
+
+CosmosClient client = new(
+    accountEndpoint: config?.CosmosUri,
+    authKeyOrResourceToken: config?.CosmosKey,
+    clientOptions: options
+);
+
+Database database = await client.CreateDatabaseIfNotExistsAsync(
+    id: "CosmosPatterns",
+    throughput: 400
+);
 
 Console.Write(
     new Panel("[green]Attribute upload utility featuring sample queries[/]")
@@ -34,8 +56,7 @@ Console.Write(
 
 Container productsContainer = await database.CreateContainerIfNotExistsAsync(
     id: "Products",
-    partitionKeyPath: "/productId",
-    throughput: 400
+    partitionKeyPath: "/productId"
 );
 
 // Use product container as an example
@@ -50,8 +71,7 @@ Console.Write(
 
 Container hotelRoomsContainer = await database.CreateContainerIfNotExistsAsync(
     id: "Hotels",
-    partitionKeyPath: "/hotelId",
-    throughput: 400
+    partitionKeyPath: "/hotelId"
 );
 
 // Use hotel room price container as an example
