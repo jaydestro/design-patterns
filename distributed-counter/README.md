@@ -8,7 +8,6 @@ name: |
   Azure Cosmos DB design pattern: Distributed counter
 urlFragment: distributed-counter
 description: Review this example of the distributed counter pattern to keep track of a number in a high concurrency environment.
-azureDeploy: https://raw.githubusercontent.com/AzureCosmosDB/design-patterns/main/distributed-counter/source/azuredeploy.json
 ---
 
 # Azure Cosmos DB design pattern: Distributed counter
@@ -74,15 +73,7 @@ This sample is implemented as a C#/.NET application with three projects. The thr
 
 ## Try this implementation
 
-You can try out this implementation by either:
-
-- **Codespace**: Running the code in GitHub Codespaces with a [free Azure Cosmos DB account](https://learn.microsoft.com/azure/cosmos-db/try-free). (*This option doesn't require an Azure subscription, just a GitHub account.*)
-
-- **Zero-touch**: Deploying the Azure Cosmos DB account and other relevant resources to your Azure Cosmos DB subscription using an Azure Resource Manager template.
-
-### Codespace
-
-This option requires only a [GitHub account](https://github.com/join) to run the codespace and create a free Azure Cosmos DB account.
+You can try out this implementation by running the code in [GitHub Codespaces](https://docs.github.com/codespaces/overview) with a [free Azure Cosmos DB account](https://learn.microsoft.com/azure/cosmos-db/try-free). (*This option doesn't require an Azure subscription, just a GitHub account.*)
 
 1. Create a free Azure Cosmos DB for NoSQL account: (<https://cosmos.azure.com/try>)
 
@@ -157,18 +148,6 @@ This option requires only a [GitHub account](https://github.com/join) to run the
 1. Go back to the web application and observe the counters values change over time.
 
     ![Screenshot of the dynamic graph updated with distributed counter values.](media/distributed-counter-graph.png)
-
-### Zero-touch
-
-1. Select **Deploy to Azure** to open this Azure Resource Manager template in the Azure portal
-
-    [![Illustration of a button with the Azure icon and the text "Deploy to Azure."](../media/deploy-to-azure-button.svg)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fazurecosmosdb%2Fdesign-patterns%2Fmain%2Fdistributed-counter%2Fsource%2Fazuredeploy.json)
-
-1. Accept the default template parameters and select **** to deploy the template.
-
-1. Wait for the deployment to complete. The deployment can take **10-15** minutes.
-
-1. After the deployment finishes, open the web application and create a counter.
 
 ## Next steps
 
