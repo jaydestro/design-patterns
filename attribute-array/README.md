@@ -166,11 +166,11 @@ The object JSON saved to Azure Cosmos DB would look like the following example. 
 SQL queries would be required to "predict" which properties could exist on the items:
 
 ```sql
-SELECT VALUE r FROM rooms r WHERE r.priceEUR >= @price OR r.priceUSD >= @price
+SELECT VALUE r FROM rooms r WHERE r.priceEUR >= 750 OR r.priceUSD >= 750
 ```
 
 ```sql
-SELECT VALUE r FROM rooms r WHERE r.sizeSquareMeters >= @size OR r.sizeSquareFeet >= @size
+SELECT VALUE r FROM rooms r WHERE r.sizeSquareMeters >= 200 OR r.sizeSquareFeet >= 200
 ```
 
 An attribute array alternative would be to create a collection of prices and separate collection of sizes.
@@ -232,11 +232,11 @@ The object JSON saved to Azure Cosmos DB would look like the following. Notice h
 This pattern results in queries that are far simpler to parse and future-proof against the addition of new attributes:
 
 ```sql
-SELECT VALUE r FROM room r JOIN p IN r.prices WHERE p.price >= @price
+SELECT VALUE r FROM room r JOIN p IN r.prices WHERE p.price >= 750
 ```
 
 ```sql
-SELECT VALUE r FROM room r JOIN s IN r.sizes WHERE s.size >= @size
+SELECT VALUE r FROM room r JOIN s IN r.sizes WHERE s.size >= 200
 ```
 
 ## Try this implementation
@@ -295,40 +295,48 @@ You can try out this implementation by running the code in [GitHub Codespaces](h
 
 1. Select the **Products** container, and then select **New SQL Query**.
 
-1. Run the following test queries:
+1. Run the following test queries for the **Products** container.
 
     - Query for products using attribute properties:
 
         ```sql
-        
+        SELECT VALUE p FROM products p WHERE p.sizeSmall >= 75 OR p.sizeMedium >= 75 OR p.sizeLarge >= 75
         ```
 
     - Query for products using attribute arrays:
 
         ```sql
-        
+        SELECT VALUE p FROM products p JOIN s IN p.sizes WHERE s.count >= 75
         ```
 
 1. Now, select the **Hotels** container, and then select **New SQL Query**.
 
-1. Run the following test queries:
+1. Run the following test queries for the **Hotels** container.
 
     - Query for hotels
 
         ```sql
-        
+        SELECT VALUE r FROM room r WHERE r.entityType = 'Hotel'
         ```
 
     - Query for hotel rooms using attribute properties:
 
         ```sql
-        
+        SELECT VALUE r FROM rooms r WHERE r.priceEUR >= 750 OR r.priceUSD >= 750
         ```
 
-    - Query for products using attribute arrays:
+        ```sql
+        SELECT VALUE r FROM rooms r WHERE r.sizeSquareMeters >= 200 OR r.sizeSquareFeet >= 200
+        ```
+
+    - Query for hotel rooms using attribute arrays:
 
         ```sql
-        
+        SELECT VALUE r FROM room r JOIN p IN r.prices WHERE p.price >= 750
+        ```
+
+        ```sql
+        SELECT VALUE r FROM room r JOIN s IN r.sizes WHERE s.size >= 200
         ```
 
 ## Summary
