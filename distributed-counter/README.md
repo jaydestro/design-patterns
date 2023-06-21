@@ -14,13 +14,12 @@ description: Review this example of the distributed counter pattern to keep trac
 
 In a high concurrency application, many client applications may need to update a counter property within a single item in real-time. Typically, this update operation would cause a concurrency issues or contention. The distributed counter pattern solves this problem by managing the increment/decrement of a counter separately from the impacted item.
 
-> This sample demonstrates:
->
-> - ✅ Creation of multiple distributed counters using the value of a primary counter.
-> - ✅ On-demand splitting and merging of distributed counters.
-> - ✅ Calculation of an aggregated value from the distributed counters at any given time.
-> - ✅ Modifying the distributed counters randomly using a large number of worker threads.
->
+This sample demonstrates:
+
+- ✅ Creation of multiple distributed counters using the value of a primary counter.
+- ✅ On-demand splitting and merging of distributed counters.
+- ✅ Calculation of an aggregated value from the distributed counters at any given time.
+- ✅ Modifying the distributed counters randomly using a large number of worker threads.
 
 ## Common scenario
 
