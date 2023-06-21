@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System.Configuration;
-using System.Net;
-using System.Collections;
-using System.Drawing;
-using System.Diagnostics.Metrics;
 using CosmosDistributedCounter;
 using DistributedCounterConsumerApp;
+using Spectre.Console;
+using Console = Spectre.Console.AnsiConsole;
 
 namespace Cosmos_Patterns_DistributedCounter
 {
@@ -39,51 +36,43 @@ namespace Cosmos_Patterns_DistributedCounter
 
         static async Task MainAsync()
         {
-            Console.WriteLine("Running Distributed Counter Consumer ...");
+            Console.Write(new Rule($"[underline silver]Starting distributed counter consumer...[/]"){ Justification = Justify.Left });
 
+            string counterId = Console.Prompt(
+                new TextPrompt<string>("What is the [teal]counter ID[/]?")
+                    .PromptStyle("teal")
+                    .ValidationErrorMessage("[maroon]Primary counter couldn't be found. Please try again.[/]")
+                    .Validate(id =>
+                    {
+                        pc = dcos.GetPrimaryCounterAsync(id).Result;
+                        return pc is not null;
+                    })
+            );
 
-            while(pc == null)
-            {
-                Console.WriteLine("Enter the Counter ID");
-                string counterId = Console.ReadLine().Trim();
-
-                Console.WriteLine("Getting Counter...");
-                pc = await dcos.GetPrimaryCounterAsync(counterId);
-                if (pc == null)
-                {
-                    Console.WriteLine("Primary Counter couldn't be found. Press any key to retry.");
-                    Console.ReadLine();
-                }
-            }
-
-            int threadCount = 2;
-            Console.WriteLine("Enter the number of worker threads required");
-            int.TryParse(Console.ReadLine().Trim(), out threadCount);
+            int numWorkerThreads = Console.Prompt(
+                new TextPrompt<int>("What are the [teal]number of worker threads required[/]?")
+                    .PromptStyle("teal")
+            );
 
             _lock = new object();
-            for (int i=0;i<threadCount;i++)
+            for (int i=0;i<numWorkerThreads;i++)
             {
-                WorkerThread wt = new WorkerThread(pc, dcos, new PostMessageCallback(MessageCallback));
+                WorkerThread wt = new WorkerThread(
+                    pc, 
+                    dcos, new PostMessageCallback(MessageCallback));
                 wt.StartThread();
             }
 
-            Console.WriteLine(threadCount + " worker threads are running... ,hit any key to exit");
-            var input = Console.ReadLine();
+            Console.Write(new Rule($"[underline silver]{numWorkerThreads}[/] worker threads are running...") { Justification = Justify.Left });
+            Console.Ask<string>(String.Empty);
         }
 
-
-
-        public static void MessageCallback(ConsoleMessage msg)
+        private static void MessageCallback(string message)
         {
-
             lock (_lock)
             {
-
-                Console.ForegroundColor = msg.Color;
-                Console.WriteLine(msg.Message);
-
+                Console.MarkupLine(message);
             }
         }
-
     }
 }

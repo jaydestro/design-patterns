@@ -1,21 +1,10 @@
 ﻿using CosmosDistributedCounter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using Spectre.Console;
 
 namespace DistributedCounterConsumerApp
 {
-    public record ConsoleMessage(
-           string Message,
-           ConsoleColor Color
-       );
-
     // Delegate that defines the signature for the callback method.
-    public delegate void PostMessageCallback(ConsoleMessage msg);
+    public delegate void PostMessageCallback(string msg);
 
     internal class WorkerThread
     {
@@ -43,16 +32,16 @@ namespace DistributedCounterConsumerApp
                 {
                     if (await dcos.DecrementDistributedCounterValueAsync(pc, decrementVal) == false)
                     {
-                        postMessage(new ConsoleMessage($"Warning: Decrement Failed", ConsoleColor.Yellow));
+                        postMessage($"[yellow bold]Failed[/]\t\t[italic strikethrough]Attemped to decrement by {decrementVal}[/]");
                     }
                     else
                     {
-                        postMessage(new ConsoleMessage($"Sucess: Decrement by "+ decrementVal, ConsoleColor.Blue));
+                        postMessage($"[green bold]Success[/]\t\t[italic]Decrement by {decrementVal}[/]");
                     }
                 }
                 catch (Exception ex)
                 {
-                    postMessage(new ConsoleMessage($"Exception: " + ex.Message, ConsoleColor.Red));
+                    postMessage($"[red bold]Exception[/]\t[italic]{ex.Message}[/]");
                 }
 
                 //DO WORK, delay before next execution
