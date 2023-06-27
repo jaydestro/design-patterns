@@ -1,8 +1,10 @@
 {
-    "name": "Distributed counter pattern",
-    "image": "mcr.microsoft.com/devcontainers/dotnet:6.0",
+    "name": "Data binning pattern",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
-    "workspaceFolder": "/workspace/distributed-counter/source/",
+    "workspaceFolder": "/workspace/data-binning/source/",
     "updateContentCommand": "dotnet build",
     "features": {
         "ghcr.io/devcontainers/features/azure-cli:1": {
