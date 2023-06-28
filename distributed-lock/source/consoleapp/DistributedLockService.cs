@@ -24,6 +24,11 @@ namespace CosmosDistributedLock.Services
 
         }
 
+        public async Task InitDatabaseAsync()
+        {
+            await cosmos.InitDatabaseAsync();
+        }
+
         public async Task Init(string lockName)
         {
             // warm up SDK
