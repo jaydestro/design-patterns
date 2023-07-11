@@ -27,6 +27,7 @@ namespace Cosmos_Patterns_GlobalLock
             var config = configuration.Build();
 
             dls = new DistributedLockService(config);
+            await dls.InitDatabaseAsync();
 
             await MainAsync();
         }
