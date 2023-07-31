@@ -1,6 +1,6 @@
 # Event Sourcing Pattern Demo
 
-This folder contains an Azure Function that will simulate shopping cart events for an event sourcing pattern which appends events to Cosmos DB. Use Program.cs to generate example events and send to an Azure function that deserializes and saves to Cosmos DB.
+This folder contains an Azure Function that will simulate shopping cart events for an event sourcing pattern which appends events to Azure Cosmos DB. Use Program.cs to generate example events and send to an Azure function that deserializes and saves to Azure Cosmos DB.
 
 ## CosmosPatternsEventSourcingExample function
 
@@ -68,9 +68,9 @@ Once the template is loaded, populate the values:
 
 Once those settings are set, select **Review + create**, then **Create**.
 
-## Get Cosmos DB connection information
+## Get Azure Cosmos DB connection information
 
-You will need a connection string for the Cosmos DB account.
+You will need a connection string for the Azure Cosmos DB account.
 
 1. Once the template deployment is complete, select **Go to resource group**.
 2. Select the new Azure Cosmos DB for NoSQL account.
@@ -113,7 +113,7 @@ dotnet run
 ## Querying the event source data
 Once you have run [the demo](./code/setup.md) which generates data, you can run queries directly against the event source container by using **Data Explorer** in the Azure Portal.
 
-1. In Azure Portal, browse to you Cosmos DB resource.
+1. In Azure Portal, browse to you Azure Cosmos DB resource.
 2. Select **Data Explorer** in the left menu.
 3. Select your container, then choose **New SQL Query**. 
 ![Screenshot of creating a SQL Query in Data Explorer within the Azure portal.](./images/data-explorer-create-new-query.png)
