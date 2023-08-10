@@ -239,4 +239,5 @@ Look at the values under **Query Stats**. For this demo, pay close attention to 
 
 ![Screenshot of Data Explorer with the query run over the SalesByProduct container. The SalesByProduct container in navigation and the 'Index lookup time' in Query Stats are highlighted.](../images/index-lookup-type-salesbyproduct.png)
 
+## Summary
 When deciding what field to use for the partition key, keep in mind the queries you use and how you filter your data. A materialized view for your query can significantly improve the performance.
