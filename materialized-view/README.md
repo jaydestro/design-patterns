@@ -219,7 +219,7 @@ Once data is loaded, you can test an in-partition query to make note of the diff
 
 Look at the values under **Query Stats**. For this demo, pay close attention to the **Index lookup time**. In this example, the query was run over 50 documents in the **Sales** container. The index lookup time came back at 0.17 ms
 
-![Screenshot of Data Explorer with the query run over the Sales container. The Sales container in navigation and the 'Index lookup time' in Query Stats are highlighted.](../images/index-lookup-type-sales.png)
+![Screenshot of Data Explorer with the query run over the Sales container. The Sales container in navigation and the 'Index lookup time' in Query Stats are highlighted.](/materialized-view/images/index-lookup-type-sales.png)
 
 ### Run the query in the SalesByProduct container
 
@@ -237,7 +237,7 @@ Make note of the values under **Query Stats**. These are the stats for the query
 
 Look at the values under **Query Stats**. For this demo, pay close attention to the **Index lookup time**. In this example, the query was run over the 50 documents only in the **SalesByProduct** container. The index lookup time came back at 0.08 ms.
 
-![Screenshot of Data Explorer with the query run over the SalesByProduct container. The SalesByProduct container in navigation and the 'Index lookup time' in Query Stats are highlighted.](../images/index-lookup-type-salesbyproduct.png)
+![Screenshot of Data Explorer with the query run over the SalesByProduct container. The SalesByProduct container in navigation and the 'Index lookup time' in Query Stats are highlighted.](/materialized-view/images/index-lookup-type-salesbyproduct.png)
 
 ## Summary
 When deciding what field to use for the partition key, keep in mind the queries you use and how you filter your data. A materialized view for your query can significantly improve the performance.
