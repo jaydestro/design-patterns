@@ -25,7 +25,7 @@ This sample demonstrates:
 - ✅ Implementing materialized views using the change feed.
 - ✅ Look at a query meant for the Product partitioned container and how it runs in the two different containers.
 - ✅ Test an in-partition query to make note of the difference in performance.
-- 
+ 
 ## Common scenario
 
 Materialized views offer a valuable means of enhancing query performance by precomputing and storing optimized data representations. This process involves creating derived tables that capture and preserve the results of specific queries. By doing so, materialized views address the need for faster and more efficient data retrieval.
