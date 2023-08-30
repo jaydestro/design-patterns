@@ -5,7 +5,7 @@ languages:
 products:
 - azure-cosmos-db
 name: |
-  Azure Cosmos DB design pattern: Document Versioning
+  Azure Cosmos DB design pattern: Event sourcing
 urlFragment: event-sourcing
 description: This is an example that will simulate shopping cart events for an event sourcing pattern which appends events to Azure Cosmos DB.
 ---
