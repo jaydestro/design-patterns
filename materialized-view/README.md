@@ -163,25 +163,33 @@ You can try out this implementation by running the code in [GitHub Codespaces](h
     | **Partition key path** | `/Product` |
     | **Throughput** | `400` (*Manual*) |
 
-1. Open the application code in a GitHub Codespace:
+## Get Azure Cosmos DB connection information
 
-    [![Illustration of a button with the GitHub icon and the text "Open in GitHub Codespaces."](../media/open-github-codespace-button.svg)](https://codespaces.new/AzureCosmosDB/design-patterns?devcontainer_path=.devcontainer%2Fmaterialized-view%2Fdevcontainer.json)
+You will need a connection string for the Azure Cosmos DB account.
 
-## Set up environment variables
-
-You need 2 environment variables to run these demos.
-
-1. Go to resource group.
+1. Go to resource group
 
 1. Select the new Azure Cosmos DB for NoSQL account.
 
 1. From the navigation, under **Settings**, select **Keys**. The values you need for the environment variables for the demo are here.
 
+Create 2 environment variables to run the demos:
+
+- `COSMOS_ENDPOINT`: set to the `URI` value on the Azure Cosmos DB account Keys blade.
+- `COSMOS_KEY`: set to the Read-Write `PRIMARY KEY` for the Azure Cosmos DB for NoSQL account
+
+Create your environment variables in a bash terminal with the following syntax:
+
+```bash
+export COSMOS_ENDPOINT="YOUR_COSMOS_ENDPOINT"
+export COSMOS_KEY="YOUR_COSMOS_KEY"
+```
+
 1. While on the Keys blade, make note of the `PRIMARY CONNECTION STRING`. You will need this for the Azure Function App.
 
 ## Generate data
 
- Open the application code.
+Open the application code.
 
 Run the data generator to generate sales data.
 

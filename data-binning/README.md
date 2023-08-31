@@ -32,6 +32,7 @@ By applying data binning, you can efficiently calculate metrics like the average
 If this pattern is not used for this scenario, it would result in a high volume of rows in an Azure Cosmos DB collection. Storing that detail would keep flexibility for all types of queries, but the performance and cost would not be optimal for querying at the 1 minute level. By applying calculations over an appropriate time window, less storage is required, less work is performed by each read, and less processing power is required to support queries.
 
 ## Sample implementation
+
 In this section we will walk through a case study on how to design and implement binning to optimize cost.
 
 An example where binning is preferred is when working with sensor data from Internet of Things (IoT) devices. For example, a hotel chain has devices installed in all rooms to read the temperature and send events to a centralized service. Each of those devices is configured to send an event to Azure IoT Hub every 5 seconds. For a hotel chain with one thousand rooms across its locations, that results in 12,000 records per minute. The online monitoring application which uses Azure Cosmos DB only needs to show results once per minute. By applying the binning pattern with a window of 1 minute, the Azure Cosmos DB container will write 1,000 records per minute. This reduces the RSUs required for both write and read operations without losing any detail the application requires.
@@ -126,36 +127,15 @@ Once binning is applied to summarize to a 1 minute window, the resulting event w
 }
 
 ```
+
 Note: In the demo application, aggregated events are collected based on system time. The `numberOfReadings` will likely be less than 12 on the earliest `eventTimestamp` because that is usually a partial minute (from whenever the application is started until the first time current timestamp has seconds value of `00`).
 
 ## Try this implementation
 
-You can try out this implementation by running the code in [GitHub Codespaces](https://docs.github.com/codespaces/overview) with a [free Azure Cosmos DB account](https://learn.microsoft.com/azure/cosmos-db/try-free). (*This option doesn't require an Azure subscription, just a GitHub account.*)
-
-1. Create a free Azure Cosmos DB for NoSQL account: (<https://cosmos.azure.com/try>)
-
-1. Open the new account in the Azure portal and record the **URI** and **PRIMARY KEY** fields. These fields can be found in the **Keys** section of the account's page within the portal.
-
-1. Add a file to the folder Cosmos_Patterns_Bucketing called `local.settings.json` with the following contents:
-
-To run the function app for Binning pattern, you will need to have:
+In order to run the demos, you will need:
 
 - [.NET 6.0 Runtime](https://dotnet.microsoft.com/download/dotnet/6.0)
-- 2 environment variables:
-  - `COSMOS_ENDPOINT`: set to the Azure Cosmos DB for NoSQL endpoint
-  - `COSMOS_KEY`: set to the Read-Write key for the Azure Cosmos DB for NoSQL account
-- [Azure Functions Core Tools](https://learn.microsoft.com/azure/azure-functions/functions-run-local#install-the-azure-functions-core-tools)
-- Add a file to the folder `Cosmos_Patterns_Bucketing` called **local.settings.json** with the following contents:
-
-    ```json
-    {
-        "IsEncrypted": false,
-        "Values": {
-            "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-            "FUNCTIONS_WORKER_RUNTIME": "dotnet"
-        }
-    }
-    ```
+- [Azure Functions Core Tools v4](https://learn.microsoft.com/azure/azure-functions/functions-run-local#install-the-azure-functions-core-tools)
 
 ## Confirm required tools are installed
 
@@ -175,11 +155,57 @@ Next, check the version of Azure Functions Core Tools with this command:
 func --version
 ```
 
-You should have a version 4._x_ installed. If you do not have this version installed, you will need to uninstall the older version and follow [these instructions for installing Azure Functions Core Tools](https://learn.microsoft.com/azure/azure-functions/functions-run-local#install-the-azure-functions-core-tools).
+You should have installed a version that starts with `4.`. If you do not have a v4 version installed, you will need to uninstall the older version and follow [these instructions for installing Azure Functions Core Tools](https://learn.microsoft.com/azure/azure-functions/functions-run-local#install-the-azure-functions-core-tools).
 
-## Create Database and Containers
+## Getting the code
 
-1. In the Data Explorer, create a new **Hotels** database and a **SensorEvents** container with the following values:
+There are a few ways you can start working with the code in this demo.
+
+### **Clone the Repository to Your Local Computer:**
+
+**Using the Terminal:**
+
+- Open the terminal on your computer.
+- Navigate to the directory where you want to clone the repository.
+- Type `git clone https://github.com/AzureCosmosDB/design-patterns.git` and press enter.
+- The repository will be cloned to your local machine.
+
+**Using Visual Studio Code:**
+
+- Open Visual Studio Code.
+- Click on the **Source Control** icon in the left sidebar.
+- Click on the **Clone Repository** button at the top of the Source Control panel.
+- Paste `https://github.com/AzureCosmosDB/design-patterns.git` into the text field and press enter.
+- Select a directory where you want to clone the repository.
+- The repository will be cloned to your local machine.
+
+### **Fork the Repository:**
+
+Forking the repository allows you to create your own copy of the repository under your GitHub account. This copy is independent of the original repository and is stored on your account. You can make changes to your forked copy without affecting the original repository. To fork the repository:
+
+- Visit the repository URL: [https://github.com/AzureCosmosDB/design-patterns](https://github.com/AzureCosmosDB/design-patterns)
+- Click the "Fork" button at the top right corner of the repository page.
+- Select where you want to fork the repository (your personal account or an organization).
+- After forking, you'll have your own copy of the repository under your account. You can make changes, create branches, and push your changes back to your fork.
+- After forking the repository, open the repository on GitHub: [https://github.com/YourUsername/design-patterns](https://github.com/YourUsername/design-patterns) (replace `YourUsername` with your GitHub username).
+- Click the "Code" button and copy the URL (HTTPS or SSH) of the repository.
+- Open a terminal on your local computer and navigate to the directory where you want to clone the repository using the `cd` command.
+- Run the command: `git clone <repository_url>` (replace `<repository_url>` with the copied URL).
+- This will create a local copy of the repository on your computer, which you can modify and work with.
+
+### **GitHub Codespaces**
+
+You can try out this implementation by running the code in [GitHub Codespaces](https://docs.github.com/codespaces/overview) with a [free Azure Cosmos DB account](https://learn.microsoft.com/azure/cosmos-db/try-free). (*This option doesn't require an Azure subscription, just a GitHub account.*)
+
+- Open the application code in a GitHub Codespace:
+
+    [![Illustration of a button with the GitHub icon and the text "Open in GitHub Codespaces."](../media/open-github-codespace-button.svg)](https://codespaces.new/jaydestro/design-patterns?devcontainer_path=.devcontainer%2Fdata-binning%2Fdevcontainer.json)
+
+## Create an Azure Cosmos DB for NoSQL account
+
+1. Create a free Azure Cosmos DB for NoSQL account: (<https://cosmos.azure.com/try>)
+
+1. In the Data Explorer, create a new database and container with the following values:
 
     | | Value |
     | --- | --- |
@@ -188,13 +214,9 @@ You should have a version 4._x_ installed. If you do not have this version insta
     | **Partition key path** | `/DeviceId` |
     | **Throughput** | `400` (*Manual*) |
 
-1. Open the application code in a GitHub Codespace:
-
-    [![Illustration of a button with the GitHub icon and the text "Open in GitHub Codespaces."](../media/open-github-codespace-button.svg)](https://codespaces.new/AzureCosmosDB/design-patterns?devcontainer_path=.devcontainer%2Fdata-binning%2Fdevcontainer.json)
-
 ## Set up environment variables
 
-1. Once the template deployment is complete, select **Go to resource group**.
+1. Go to resource group
 1. Select the new Azure Cosmos DB for NoSQL account.
 1. From the navigation, under **Settings**, select **Keys**. The values you need for the environment variables for the demo are here.
 
@@ -211,6 +233,18 @@ You should have a version 4._x_ installed. If you do not have this version insta
     ```
 
 ## Run the demo
+
+1. Open the application code.  Add a file to the folder `Cosmos_Patterns_Bucketing` called **local.settings.json** with the following contents:
+
+    ```json
+    {
+        "IsEncrypted": false,
+        "Values": {
+            "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+            "FUNCTIONS_WORKER_RUNTIME": "dotnet"
+        }
+    }
+    ```
 
 1. Start the function app to wait for HTTP calls to simulate events and binning.
 
@@ -259,5 +293,6 @@ GROUP BY c.DeviceId
 
 Note: The generated data will likely have many values considered anomalies. You can test out different filters to create your own rules.
 
-# Summary
+## Summary
+
 When modeling binned data, it is important to consider which summarized values may be helpful. If maximum and minimum are not useful, then those can be left out. Most often a sum, count, average, or all three will be helpful.

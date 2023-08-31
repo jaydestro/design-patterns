@@ -10,6 +10,8 @@ urlFragment: preallocation
 description: This is an example that shows how preallocation is used to optimize the performance and efficiency of database operations by allocating resources or space in advance, rather than dynamically as needed. 
 ---
 
+# UNDER CONSTRUCTION
+
 # Preallocation Pattern
 
 The **preallocation pattern** in NoSQL databases refers to a strategy of reserving or allocating resources such as storage space, throughput, and other capacity-related aspects in advance, rather than dynamically as needed. This pattern aims to optimize the performance, scalability, and predictability of NoSQL database systems by reducing the overhead of resource allocation during runtime and ensuring that sufficient resources are available to handle workload spikes and growth.
@@ -277,7 +279,6 @@ You can try out this implementation by running the code in [GitHub Codespaces](h
 ## Create an Azure Cosmos DB for NoSQL account
 
 1. Create a free Azure Cosmos DB for NoSQL account: (<https://cosmos.azure.com/try>)
-
 
 1. In the Data Explorer, create a new database and container with the following values:
 
