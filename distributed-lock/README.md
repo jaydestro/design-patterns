@@ -44,11 +44,69 @@ The TTL feature is used to automatically get rid of a lease object rather than h
 
 ## Try this implementation
 
+In order to run the demos, you will need:
+
+- [.NET 6.0 Runtime](https://dotnet.microsoft.com/download/dotnet/6.0)
+
+## Confirm required tools are installed
+
+Confirm you have the required versions of the tools installed for this demo.
+
+First, check the .NET runtime with this command:
+
+```bash
+dotnet --list-runtimes
+```
+
+As you may have multiple versions of the runtime installed, make sure that .NET components with versions that start with 6.0 appear as part of the output.
+
+## Getting the code
+
+There are a few ways you can start working with the code in this demo.
+
+### **Clone the Repository to Your Local Computer:**
+
+**Using the Terminal:**
+
+- Open the terminal on your computer.
+- Navigate to the directory where you want to clone the repository.
+- Type `git clone https://github.com/AzureCosmosDB/design-patterns.git` and press enter.
+- The repository will be cloned to your local machine.
+
+**Using Visual Studio Code:**
+
+- Open Visual Studio Code.
+- Click on the **Source Control** icon in the left sidebar.
+- Click on the **Clone Repository** button at the top of the Source Control panel.
+- Paste `https://github.com/AzureCosmosDB/design-patterns.git` into the text field and press enter.
+- Select a directory where you want to clone the repository.
+- The repository will be cloned to your local machine.
+
+### **Fork the Repository:**
+
+Forking the repository allows you to create your own copy of the repository under your GitHub account. This copy is independent of the original repository and is stored on your account. You can make changes to your forked copy without affecting the original repository. To fork the repository:
+
+- Visit the repository URL: [https://github.com/AzureCosmosDB/design-patterns](https://github.com/AzureCosmosDB/design-patterns)
+- Click the "Fork" button at the top right corner of the repository page.
+- Select where you want to fork the repository (your personal account or an organization).
+- After forking, you'll have your own copy of the repository under your account. You can make changes, create branches, and push your changes back to your fork.
+- After forking the repository, open the repository on GitHub: [https://github.com/YourUsername/design-patterns](https://github.com/YourUsername/design-patterns) (replace `YourUsername` with your GitHub username).
+- Click the "Code" button and copy the URL (HTTPS or SSH) of the repository.
+- Open a terminal on your local computer and navigate to the directory where you want to clone the repository using the `cd` command.
+- Run the command: `git clone <repository_url>` (replace `<repository_url>` with the copied URL).
+- This will create a local copy of the repository on your computer, which you can modify and work with.
+
+### **GitHub Codespaces**
+
 You can try out this implementation by running the code in [GitHub Codespaces](https://docs.github.com/codespaces/overview) with a [free Azure Cosmos DB account](https://learn.microsoft.com/azure/cosmos-db/try-free). (*This option doesn't require an Azure subscription, just a GitHub account.*)
 
-1. Create a free Azure Cosmos DB for NoSQL account: (<https://cosmos.azure.com/try>)
+- Open the application code in a GitHub Codespace:
 
-1. Open the new account in the Azure portal (<https://portal.azure.com>) and record the **URI** and **PRIMARY KEY** fields. These fields can be found in the **Keys** section of the account's page within the portal.
+    [![Illustration of a button with the GitHub icon and the text "Open in GitHub Codespaces."](../media/open-github-codespace-button.svg)](https://codespaces.new/AzureCosmosDB/design-patterns?devcontainer_path=.devcontainer%2Fschema-versioning%2Fdevcontainer.json)
+
+## Create an Azure Cosmos DB for NoSQL account
+
+1. Create a free Azure Cosmos DB for NoSQL account: (<https://cosmos.azure.com/try>)
 
 1. In the Data Explorer, create a new databased named **LockDB** with a small amount of throughput assigned:
 
@@ -65,11 +123,11 @@ You can try out this implementation by running the code in [GitHub Codespaces](h
     | **Container name** | `Locks` |
     | **Partition key path** | `/id` |
 
-1. Open the application code in a GitHub Codespace:
+1. From the navigation, under **Settings**, select **Keys**. The values you need for the environment variables for the demo are here.
 
-    [![Illustration of a button with the GitHub icon and the text "Open in GitHub Codespaces."](../media/open-github-codespace-button.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=613998360&devcontainer_path=.devcontainer%2Fattribute-array%2Fdevcontainer.json)
+## Configure the application
 
-1. In the codespace, create an **appsettings.Development.json** file in the **/consoleapp** folders. In this files, create a JSON object with **CosmosUri** and **CosmosKey** properties. Use the URI and primary key you recorded earlier for these values:
+1. Open the code, create an **appsettings.Development.json** file in the **/consoleapp** folders. In this files, create a JSON object with **CosmosUri** and **CosmosKey** properties. Use the URI and primary key you recorded earlier for these values:
 
 ```json
 {
