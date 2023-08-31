@@ -140,7 +140,7 @@ You can try out this implementation by running the code in [GitHub Codespaces](h
 
 To run the function app for Binning pattern, you will need to have:
 
-- [.NET 6.0 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+- [.NET 6.0 Runtime](https://dotnet.microsoft.com/download/dotnet/6.0)
 - 2 environment variables:
   - `COSMOS_ENDPOINT`: set to the Azure Cosmos DB for NoSQL endpoint
   - `COSMOS_KEY`: set to the Read-Write key for the Azure Cosmos DB for NoSQL account
@@ -190,7 +190,7 @@ You should have a version 4._x_ installed. If you do not have this version insta
 
 1. Open the application code in a GitHub Codespace:
 
-    [![Illustration of a button with the GitHub icon and the text "Open in GitHub Codespaces."](../media/open-github-codespace-button.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=613998360)
+    [![Illustration of a button with the GitHub icon and the text "Open in GitHub Codespaces."](../media/open-github-codespace-button.svg)](https://codespaces.new/AzureCosmosDB/design-patterns?devcontainer_path=.devcontainer%2Fdata-binning%2Fdevcontainer.json)
 
 ## Set up environment variables
 

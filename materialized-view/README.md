@@ -68,13 +68,13 @@ However, when running the query to get the totals for a product in the SalesByPr
 
 In the demo, you may not see the performance implications with smaller sets of data - smaller in terms of the amount of data overall as well as diversity in the `CustomerId` column. However, when your data grows beyond 50 GB in storage or throughput of 10000 RU/s, you will see the performance implications at scale.
 
-**Note**: If you are running into aggregation analysis at scale, the materialized views would not be advised. For large-scale analysis, consider [Azure Cosmos DB analytical store](https://learn.microsoft.com/en-us/azure/cosmos-db/analytical-store-introduction) and [Azure Synapse Link for Azure Cosmos DB](https://learn.microsoft.com/en-us/azure/cosmos-db/synapse-link).
+**Note**: If you are running into aggregation analysis at scale, the materialized views would not be advised. For large-scale analysis, consider [Azure Cosmos DB analytical store](https://learn.microsoft.com/azure/cosmos-db/analytical-store-introduction) and [Azure Synapse Link for Azure Cosmos DB](https://learn.microsoft.com/azure/cosmos-db/synapse-link).
 
 ## Try this implementation
 
 To run this demo, you will need to have:
 
-- [.NET 6.0 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+- [.NET 6.0 Runtime](https://dotnet.microsoft.com/download/dotnet/6.0)
 - [Azure Functions Core Tools](https://learn.microsoft.com/azure/azure-functions/functions-run-local#install-the-azure-functions-core-tools)
 
 ## Confirm required tools are installed
@@ -97,13 +97,53 @@ func --version
 
 You should have a version 4._x_ installed. If you do not have this version installed, you will need to uninstall the older version and follow [these instructions for installing Azure Functions Core Tools](https://learn.microsoft.com/azure/azure-functions/functions-run-local#install-the-azure-functions-core-tools).
 
-## Create an Azure Cosmos DB for NoSQL account
+## Getting the code
+
+There are a few ways you can start working with the code in this demo.
+
+### **Clone the Repository to Your Local Computer:**
+
+**Using the Terminal:**
+
+- Open the terminal on your computer.
+- Navigate to the directory where you want to clone the repository.
+- Type `git clone https://github.com/AzureCosmosDB/design-patterns.git` and press enter.
+- The repository will be cloned to your local machine.
+
+**Using Visual Studio Code:**
+
+- Open Visual Studio Code.
+- Click on the **Source Control** icon in the left sidebar.
+- Click on the **Clone Repository** button at the top of the Source Control panel.
+- Paste `https://github.com/AzureCosmosDB/design-patterns.git` into the text field and press enter.
+- Select a directory where you want to clone the repository.
+- The repository will be cloned to your local machine.
+
+### **Fork the Repository:**
+
+Forking the repository allows you to create your own copy of the repository under your GitHub account. This copy is independent of the original repository and is stored on your account. You can make changes to your forked copy without affecting the original repository. To fork the repository:
+
+- Visit the repository URL: [https://github.com/AzureCosmosDB/design-patterns](https://github.com/AzureCosmosDB/design-patterns)
+- Click the "Fork" button at the top right corner of the repository page.
+- Select where you want to fork the repository (your personal account or an organization).
+- After forking, you'll have your own copy of the repository under your account. You can make changes, create branches, and push your changes back to your fork.
+- After forking the repository, open the repository on GitHub: [https://github.com/YourUsername/design-patterns](https://github.com/YourUsername/design-patterns) (replace `YourUsername` with your GitHub username).
+- Click the "Code" button and copy the URL (HTTPS or SSH) of the repository.
+- Open a terminal on your local computer and navigate to the directory where you want to clone the repository using the `cd` command.
+- Run the command: `git clone <repository_url>` (replace `<repository_url>` with the copied URL).
+- This will create a local copy of the repository on your computer, which you can modify and work with.
+
+### **GitHub Codespaces**
 
 You can try out this implementation by running the code in [GitHub Codespaces](https://docs.github.com/codespaces/overview) with a [free Azure Cosmos DB account](https://learn.microsoft.com/azure/cosmos-db/try-free). (*This option doesn't require an Azure subscription, just a GitHub account.*)
 
-1. Create a free Azure Cosmos DB for NoSQL account: (<https://cosmos.azure.com/try>)
+- Open the application code in a GitHub Codespace:
 
-1. Open the new account in the Azure portal and record the **URI** and **PRIMARY KEY** fields. These fields can be found in the **Keys** section of the account's page within the portal.
+    [![Illustration of a button with the GitHub icon and the text "Open in GitHub Codespaces."](../media/open-github-codespace-button.svg)](https://codespaces.new/AzureCosmosDB/design-patterns?devcontainer_path=.devcontainer%2Fmaterialized-view%2Fdevcontainer.json)
+
+## Create an Azure Cosmos DB for NoSQL account
+
+1. Create a free Azure Cosmos DB for NoSQL account: (<https://cosmos.azure.com/try>)
 
 1. In the Data Explorer, create a new database and container with the following values:
 
@@ -123,31 +163,25 @@ You can try out this implementation by running the code in [GitHub Codespaces](h
     | **Partition key path** | `/Product` |
     | **Throughput** | `400` (*Manual*) |
 
+1. Open the application code in a GitHub Codespace:
+
+    [![Illustration of a button with the GitHub icon and the text "Open in GitHub Codespaces."](../media/open-github-codespace-button.svg)](https://codespaces.new/AzureCosmosDB/design-patterns?devcontainer_path=.devcontainer%2Fmaterialized-view%2Fdevcontainer.json)
+
 ## Set up environment variables
 
 You need 2 environment variables to run these demos.
 
-1. Once the template deployment is complete, select **Go to resource group**.
+1. Go to resource group.
+
 1. Select the new Azure Cosmos DB for NoSQL account.
+
 1. From the navigation, under **Settings**, select **Keys**. The values you need for the environment variables for the demo are here.
 
-Create 2 environment variables to run the demos:
-
-- `COSMOS_ENDPOINT`: set to the `URI` value on the Azure Cosmos DB account Keys blade.
-- `COSMOS_KEY`: set to the Read-Write `PRIMARY KEY` for the Azure Cosmos DB for NoSQL account
-
-Create your environment variables with the following syntax:
-
-Bash:
-
-```bash
-export COSMOS_ENDPOINT="YOUR_COSMOS_ENDPOINT"
-export COSMOS_KEY="YOUR_COSMOS_KEY"
-```
-
-While on the Keys blade, make note of the `PRIMARY CONNECTION STRING`. You will need this for the Azure Function App.
+1. While on the Keys blade, make note of the `PRIMARY CONNECTION STRING`. You will need this for the Azure Function App.
 
 ## Generate data
+
+ Open the application code.
 
 Run the data generator to generate sales data.
 
@@ -173,7 +207,7 @@ dotnet run
 
     Make sure to replace `YOUR_PRIMARY_CONNECTION_STRING` with the `PRIMARY CONNECTION STRING` value noted earlier.
 
-2. Edit **host.json** Set the `userAgentSuffix` to a value you prefer to use. This is used in tracking in Activity Monitor. See [host.json settings](https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-cosmosdb-v2?tabs=in-process%2Cextensionv4&pivots=programming-language-csharp#hostjson-settings) for more details.
+2. Edit **host.json** Set the `userAgentSuffix` to a value you prefer to use. This is used in tracking in Activity Monitor. See [host.json settings](https://learn.microsoft.com/azure/azure-functions/functions-bindings-cosmosdb-v2?tabs=in-process%2Cextensionv4&pivots=programming-language-csharp#hostjson-settings) for more details.
 
 ## Run the demo locally
 

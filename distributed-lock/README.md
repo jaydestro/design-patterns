@@ -67,7 +67,7 @@ You can try out this implementation by running the code in [GitHub Codespaces](h
 
 1. Open the application code in a GitHub Codespace:
 
-    [![Illustration of a button with the GitHub icon and the text "Open in GitHub Codespaces."](../media/open-github-codespace-button.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=613998360&devcontainer_path=.devcontainer%2Fattribute-array%2Fdevcontainer.json)
+    [![Illustration of a button with the GitHub icon and the text "Open in GitHub Codespaces."](../media/open-github-codespace-button.svg)](https://codespaces.new/AzureCosmosDB/design-patterns?devcontainer_path=.devcontainer%2Fdistributed-lock%2Fdevcontainer.json)
 
 1. In the codespace, create an **appsettings.Development.json** file in the **/consoleapp** folders. In this files, create a JSON object with **CosmosUri** and **CosmosKey** properties. Use the URI and primary key you recorded earlier for these values:
 

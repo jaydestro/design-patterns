@@ -13,25 +13,15 @@ description: This is an example that will simulate shopping cart events for an e
 
 # Event Sourcing pattern
 
-The [Event Sourcing pattern](https://learn.microsoft.com/azure/architecture/patterns/event-sourcing) is used to track append-only events (no updates or deletes) in an Azure Cosmos DB collection 
-before additional processing takes place. This gives you a full log of historical events which can feed into 
-multiple downstream systems. This full detail allows for calculating results at various points in time. In other 
-words, you have an audit of all historical changes. When using event sourcing in Azure Cosmos DB, the change feed should 
-be used to allow one or more consumers to easily process only changed data.
+The [Event Sourcing pattern](https://learn.microsoft.com/azure/architecture/patterns/event-sourcing) is used to track append-only events (no updates or deletes) in an Azure Cosmos DB collection before additional processing takes place. This gives you a full log of historical events which can feed into multiple downstream systems. This full detail allows for calculating results at various points in time. In other words, you have an audit of all historical changes. When using event sourcing in Azure Cosmos DB, the change feed should be used to allow one or more consumers to easily process only changed data.
 
 Event sourcing is a design pattern that involves capturing all changes to an application's state as a sequence of events. These events are then stored in a database or event log and can be replayed to rebuild the state of the application at any point in time. While event sourcing can be implemented with various types of databases, it often makes the most sense for NoSQL databases due to the following reasons:
 
-1. Flexibility in Schema: NoSQL databases, unlike traditional relational databases, are schema-less or schema-flexible. This aligns well with event sourcing because events themselves can have varying structures as the application evolves over time. With event sourcing, each event represents a discrete change to the application's state, and the data model can evolve naturally without rigid schema constraints.
+1. NoSQL databases offer schema flexibility, efficient handling of complex event data with nested structures, and seamless support for unstructured event data formats like JSON or BSON, aligning perfectly with the needs of event sourcing architectures.
 
 1. Scalability: NoSQL databases are designed to scale horizontally, making them well-suited for handling large volumes of writes, which is a common characteristic of event sourcing architectures. As events are continuously appended to the event log, NoSQL databases can efficiently handle write-heavy workloads, ensuring high availability and performance.
 
-1. Handling Complex Data: Event sourcing can result in complex data structures since the state of an application is built by replaying a series of events. NoSQL databases can handle nested and hierarchical data structures better than traditional relational databases, making them more suitable for storing and querying these complex event data structures.
-
-1. High Write Throughput: Event sourcing often involves capturing every state change as an event, which means a lot of write operations. NoSQL databases are optimized for write-heavy scenarios, and their distributed nature allows them to handle concurrent writes efficiently, making them an appropriate choice for event sourcing where maintaining the order of events is crucial.
-
-1. Eventual Consistency: Event sourcing typically relies on eventual consistency rather than strong consistency. NoSQL databases often offer tunable consistency levels, allowing developers to balance performance and data consistency according to their requirements. This aligns with the philosophy of event sourcing, where eventual consistency is often acceptable and even desirable.
-
-1. Support for Unstructured Data: NoSQL databases can store unstructured or semi-structured data, which aligns well with the nature of events in an event sourcing system. Events can be serialized in various formats, such as JSON or BSON, and stored directly in NoSQL databases, making it easier to work with event data without the need for complex mapping or transformations.
+1. Optimal for Event Sourcing Writes: NoSQL databases excel in horizontal scalability and high write throughput, aligning perfectly with event sourcing's need for efficiently managing large volumes of write-heavy state-changing events while maintaining event order.
 
 Despite these advantages, it's important to note that the choice of database for event sourcing depends on the specific requirements of the application and the skills and preferences of the development team. While NoSQL databases can be a good fit for many event sourcing scenarios, traditional relational databases or other data storage solutions may still be appropriate depending on the use case and the application's overall architecture.
 
@@ -62,13 +52,13 @@ A common scenario for using the NoSQL event sourcing data pattern is in building
 
 Overall, the NoSQL event sourcing data pattern is well-suited for event-driven microservices architectures, enabling scalability, resilience, and loose coupling among microservices. It's important to design the events carefully and choose the appropriate NoSQL database that fits the application's requirements and expected event throughput. Additionally, this pattern requires careful consideration of event schema evolution to ensure backward and forward compatibility as services evolve over time.
 
-## Soulution
+## Solution
 
 This pattern provides:
 - A full log of events, useful for auditing or point in time calculations.
-- Reduces risk of conflicting updates
 - Change feed capability to enable multiple consumers to process new events.
 - [Materialized Views pattern](../materialized_views/README.md) using change feed builds off the event store created with this pattern to support multiple views off the same source data.
+
 ## Sample implementation of event sourcing
 In this section we will walk through a case study on how to design and implement event sourcing.
 
@@ -136,9 +126,9 @@ Sample events in the event store would look like this:
 
 ## Try this implementation
 
-To run the function app for Bucketing pattern, you will need to have:
+To run the function app for Event Sourcing Pattern, you will need to have:
 
-- [.NET 6.0 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+- [.NET 6.0 Runtime](https://dotnet.microsoft.com/download/dotnet/6.0)
 - [Azure Functions Core Tools](https://learn.microsoft.com/azure/azure-functions/functions-run-local#install-the-azure-functions-core-tools)
 
 ## Confirm required tools are installed
@@ -161,13 +151,53 @@ func --version
 
 You should have a version 4._x_ installed. If you do not have this version installed, you will need to uninstall the older version and follow [these instructions for installing Azure Functions Core Tools](https://learn.microsoft.com/azure/azure-functions/functions-run-local#install-the-azure-functions-core-tools).
 
-## Create an Azure Cosmos DB for NoSQL account
+## Getting the code
+
+There are a few ways you can start working with the code in this demo.
+
+### **Clone the Repository to Your Local Computer:**
+
+**Using the Terminal:**
+
+- Open the terminal on your computer.
+- Navigate to the directory where you want to clone the repository.
+- Type `git clone https://github.com/AzureCosmosDB/design-patterns.git` and press enter.
+- The repository will be cloned to your local machine.
+
+**Using Visual Studio Code:**
+
+- Open Visual Studio Code.
+- Click on the **Source Control** icon in the left sidebar.
+- Click on the **Clone Repository** button at the top of the Source Control panel.
+- Paste `https://github.com/AzureCosmosDB/design-patterns.git` into the text field and press enter.
+- Select a directory where you want to clone the repository.
+- The repository will be cloned to your local machine.
+
+### **Fork the Repository:**
+
+Forking the repository allows you to create your own copy of the repository under your GitHub account. This copy is independent of the original repository and is stored on your account. You can make changes to your forked copy without affecting the original repository. To fork the repository:
+
+- Visit the repository URL: [https://github.com/AzureCosmosDB/design-patterns](https://github.com/AzureCosmosDB/design-patterns)
+- Click the "Fork" button at the top right corner of the repository page.
+- Select where you want to fork the repository (your personal account or an organization).
+- After forking, you'll have your own copy of the repository under your account. You can make changes, create branches, and push your changes back to your fork.
+- After forking the repository, open the repository on GitHub: [https://github.com/YourUsername/design-patterns](https://github.com/YourUsername/design-patterns) (replace `YourUsername` with your GitHub username).
+- Click the "Code" button and copy the URL (HTTPS or SSH) of the repository.
+- Open a terminal on your local computer and navigate to the directory where you want to clone the repository using the `cd` command.
+- Run the command: `git clone <repository_url>` (replace `<repository_url>` with the copied URL).
+- This will create a local copy of the repository on your computer, which you can modify and work with.
+
+### **GitHub Codespaces**
 
 You can try out this implementation by running the code in [GitHub Codespaces](https://docs.github.com/codespaces/overview) with a [free Azure Cosmos DB account](https://learn.microsoft.com/azure/cosmos-db/try-free). (*This option doesn't require an Azure subscription, just a GitHub account.*)
 
-1. Create a free Azure Cosmos DB for NoSQL account: (<https://cosmos.azure.com/try>)
+- Open the application code in a GitHub Codespace:
 
-1. Open the new account in the Azure portal and record the **URI** and **PRIMARY KEY** fields. These fields can be found in the **Keys** section of the account's page within the portal.
+    [![Illustration of a button with the GitHub icon and the text "Open in GitHub Codespaces."](../media/open-github-codespace-button.svg)](https://codespaces.new/AzureCosmosDB/design-patterns?devcontainer_path=.devcontainer%2Fevent-sourcing%2Fdevcontainer.json)
+
+## Create an Azure Cosmos DB for NoSQL account
+
+1. Create a free Azure Cosmos DB for NoSQL account: (<https://cosmos.azure.com/try>)
 
 1. In the Data Explorer, create a new database and container with the following values:
 
@@ -178,15 +208,21 @@ You can try out this implementation by running the code in [GitHub Codespaces](h
     | **Partition key path** | `/CartId` |
     | **Throughput** | `400` (*Manual*) |
 
-## Get Cosmos DB connection information
+## Get Azure Cosmos DB connection information
 
-You will need a connection string for the Cosmos DB account.
+You will need a connection string for the Azure Cosmos DB account.
 
-1. Once the template deployment is complete, select **Go to resource group**.
-2. Select the new Azure Cosmos DB for NoSQL account.
-3. From the navigation, under **Settings**, select **Keys**. The values you need for the environment variables for the demo are here.
+1. Go to resource group
+
+1. Select the new Azure Cosmos DB for NoSQL account.
+
+1. From the navigation, under **Settings**, select **Keys**. The values you need for the environment variables for the demo are here.
+
+1. While on the Keys blade, make note of the `PRIMARY CONNECTION STRING`. You will need this for the Azure Function App.
 
 ## Prepare the function app configuration
+
+1. Open the application code.
 
 1. Add a file to the `Cosmos_Patterns_EventSourcing` folder called **local.settings.json** with the following contents:
 
@@ -203,7 +239,7 @@ You will need a connection string for the Cosmos DB account.
 
 Make sure to replace `YOUR_PRIMARY_CONNECTION_STRING` with the `PRIMARY CONNECTION STRING` value noted earlier.
 
-2. Edit **host.json** Set the `userAgentSuffix` to a value you prefer to use. This is used in tracking in Activity Monitor. See [host.json settings](https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-cosmosdb-v2?tabs=in-process%2Cextensionv4&pivots=programming-language-csharp#hostjson-settings) for more details.
+2. Edit **host.json** Set the `userAgentSuffix` to a value you prefer to use. This is used in tracking in Activity Monitor. See [host.json settings](https://learn.microsoft.com/azure/azure-functions/functions-bindings-cosmosdb-v2?tabs=in-process%2Cextensionv4&pivots=programming-language-csharp#hostjson-settings) for more details.
 
 ## Run the demo
 
