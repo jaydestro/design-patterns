@@ -5,7 +5,7 @@
     },
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
     "workspaceFolder": "/workspace/data-binning/source/",
-    "updateContentCommand": "dotnet build",
+    "updateContentCommand": "dotnet build Cosmos_Patterns_Bucketing.csproj",
     "features": {
         "ghcr.io/devcontainers/features/azure-cli:1": {
             "installBicep": true,

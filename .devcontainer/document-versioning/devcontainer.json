@@ -1,9 +1,9 @@
 {
-    "name": "Document Versioning",
+    "name": "Document versioning pattern",
     "image": "mcr.microsoft.com/devcontainers/dotnet:6.0",
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
     "workspaceFolder": "/workspace/document-versioning/source/",
-    "updateContentCommand": "dotnet build Cosmos_Patterns_Attribute.sln",
+    "updateContentCommand": "dotnet build function-app/function-app.csproj && dotnet build website/website.csproj",
     "features": {
         "ghcr.io/devcontainers/features/azure-cli:1": {
             "installBicep": true,
