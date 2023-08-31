@@ -139,7 +139,7 @@ You can try out this implementation by running the code in [GitHub Codespaces](h
 
 - Open the application code in a GitHub Codespace:
 
-    [![Illustration of a button with the GitHub icon and the text "Open in GitHub Codespaces."](../media/open-github-codespace-button.svg)](https://codespaces.new/AzureCosmosDB/design-patterns?devcontainer_path=.devcontainer%2Fdistributed-counter%2Fdevcontainer.json)
+    [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/azure-samples/cosmos-db-design-patterns?quickstart=1&devcontainer_path=.devcontainer%2Fdistributed-counter%2Fdevcontainer.json)
 
 ## Create an Azure Cosmos DB for NoSQL account
 
