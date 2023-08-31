@@ -1,9 +1,9 @@
 {
-    "name": "Event Sourcing",
+    "name": "Event sourcing pattern",
     "image": "mcr.microsoft.com/devcontainers/dotnet:6.0",
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
     "workspaceFolder": "/workspace/event-sourcing/source/",
-    "updateContentCommand": "dotnet build Cosmos_Patterns_Attribute.sln",
+    "updateContentCommand": "dotnet build Cosmos_Patterns_EventSourcing.csproj",
     "features": {
         "ghcr.io/devcontainers/features/azure-cli:1": {
             "installBicep": true,

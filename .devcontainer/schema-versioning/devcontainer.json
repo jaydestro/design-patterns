@@ -1,9 +1,9 @@
 {
-    "name": "Schema Versioning",
-    "image": "mcr.microsoft.com/devcontainers/dotnet:6.0",
+    "name": "Schema versioning pattern",
+    "image": "mcr.microsoft.com/devcontainers/dotnet:7.0",
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
     "workspaceFolder": "/workspace/schema-versioning/source/",
-    "updateContentCommand": "dotnet build Cosmos_Patterns_Attribute.sln",
+    "updateContentCommand": "dotnet build data-generator/data-generator.csproj && dotnet build website/website.csproj",
     "features": {
         "ghcr.io/devcontainers/features/azure-cli:1": {
             "installBicep": true,

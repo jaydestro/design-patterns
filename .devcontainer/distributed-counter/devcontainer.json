@@ -3,7 +3,7 @@
     "image": "mcr.microsoft.com/devcontainers/dotnet:6.0",
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
     "workspaceFolder": "/workspace/distributed-counter/source/",
-    "updateContentCommand": "dotnet build",
+    "updateContentCommand": "dotnet build Cosmos_Patterns_DistributedCounter.sln",
     "features": {
         "ghcr.io/devcontainers/features/azure-cli:1": {
             "installBicep": true,
